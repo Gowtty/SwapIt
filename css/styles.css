@@ -1,0 +1,132 @@
+*{
+    font-family: 'Open Sans', sans-serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #333333;
+}
+
+/*Header styles*/
+
+header{
+    display: flex;
+    background-color: #6AC9DA;
+    margin: 0;
+    padding: 0;
+    justify-content: space-between;
+    padding: 8px;
+}
+
+header img{
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    padding: 5px;
+}
+
+nav ul{
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: #005168;
+    font-weight: bold;
+}
+
+a:hover{
+    color: #ffff;
+}
+
+header input[type='search']{
+    height: 30px;
+    width: 150px;
+    align-self: center;
+}
+
+.form-button{
+    width: 150px;
+    height: 35px;
+    align-self: center;
+    background-color: #005168;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/*Footer Styles*/
+
+footer{
+    background-color: #6AC9DA;
+}
+
+.main-footer-container{
+    display: flex;
+    justify-content: space-around;
+}
+footer img{
+    width: 100px;
+    height: 100px;
+    padding: 15px;
+    padding-bottom: 0;
+    margin: 0;
+}
+
+.logo-slogan{
+    margin: auto;
+    padding: 0;
+    width: 50%;
+
+}
+
+.logo-slogan p{
+    font-size: 16px;
+    font-weight: bold;
+    color: #005168;
+    margin: 0;
+    padding: 0;
+    padding-left: 15px;
+
+}
+
+footer ul{
+    list-style: none;
+    color: #005168;
+
+}
+
+.footer-icons{
+    margin: auto;
+    width: 40%;
+    padding: 0;
+    word-spacing: 30px;
+}
+
+.footer-icons a{
+    color: white;
+    font-size: 30px;
+}
+
+.footer-icons a:hover{
+    color: #005168;
+}
+
+.footer-links{
+    margin: auto;
+    padding: 0;
+    width: 25%;
+}
+
+.copyright-container{
+    margin: auto;
+    text-align: center;
+    padding: 0;
+    width: 100%;
+    font-size: 14px;
+}
+
+

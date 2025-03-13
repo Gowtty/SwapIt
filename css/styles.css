@@ -32,19 +32,21 @@ nav ul{
     list-style: none;
 }
 
-a{
+header a{
     text-decoration: none;
     color: #005168;
     font-weight: bold;
+    transition: 0.3s;
 }
 
-a:hover{
+header a:hover{
     color: #ffff;
+    transition: 0.3s;
 }
 
 header input[type='search']{
     height: 30px;
-    width: 150px;
+    width: 20vw;
     align-self: center;
 }
 
@@ -56,7 +58,94 @@ header input[type='search']{
     color: white;
     font-weight: bold;
     cursor: pointer;
+    border: none;
+    transition: 0.3s;
 }
+
+.form-button:hover{
+    background-color: #0092ba;
+    transition: 0.3s;
+    transform: scale(1.1);
+}
+
+/*Landing Header*/
+
+.landing-header{
+    height: 200px;
+    margin: 0;
+    padding: 50px;
+    color: white;
+    background-color: #000;
+}
+
+
+/*Recent posts*/
+
+cite h2{
+    text-align: center;
+    color: white;
+}
+
+cite section{
+    background-color: #333333;
+    height: 30px;
+}
+.posts-box-title{
+    display: flex;
+    background-color: #000;
+    text-align: left;
+    color: white;
+    padding: 15px 0px 0px 50px;
+    margin: 0;
+}
+
+.posts-box-title h3{
+    font-size: 20px;
+}
+
+.posts-box-title a{
+    font-size: 0.8rem;
+    margin: 25px 0px 0px 10px;
+    text-decoration: none;
+    color: #0092ba;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.posts-box-title a:hover{
+    transition: 0.3s;
+    color: white;
+}
+
+.posts-cards{
+    display: flex;
+    height: 250px;
+    background-color: #000;
+    gap: 20px;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+}
+
+.card{
+    height: 150px;
+    width: 150px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+
+/*Div sections*/
+
+.divide-section{
+    background-color: #005168;
+    height: 25px;
+}
+
 
 /*Footer Styles*/
 
@@ -109,16 +198,32 @@ footer ul{
 .footer-icons a{
     color: white;
     font-size: 30px;
+    text-decoration: none;
+    transition: 0.3s
 }
 
 .footer-icons a:hover{
     color: #005168;
+    transform: scale(1.1);
+    transition: 0.3s;
 }
 
 .footer-links{
     margin: auto;
     padding: 0;
     width: 25%;
+}
+
+.footer-links a{
+    text-decoration: none;
+    color: #005168;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.footer-links a:hover{
+    color: #ffff;
+    transition: 0.3s;
 }
 
 .copyright-container{

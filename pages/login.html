@@ -6,6 +6,10 @@
     <title>Iniciar sesión</title>
 </head>
 <body>
-    
+    <form id="login-form" action="../php/login.php" method="POST">
+        Email: <input type="email" name="email" id="email" required><br>
+        Contraseña: <input type="password" name="password" id="password" required><br>
+        <input type="submit" value="Iniciar Sesión">
+    </form>
 </body>
 </html>

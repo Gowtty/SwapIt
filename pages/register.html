@@ -6,10 +6,11 @@
     <title>Registro</title>
 </head>
 <body>
-    <form action="register.php" method="POST">
+    <form action = "../php/register.php" id = "register-form" method="POST">
         Nombre de usuario: <input type="text" name="name" required><br>
         Email: <input type="email" name="email" required><br>
-        Contraseña: <input type="password" name="password_hash" required><br>
+        Contraseña: <input id="password" type="password" name="password_hash" required><br>
+        Confirmar contraseña: <input id="conf_password" type="password" name="conf_password" required><br>
         Teléfono: <input type="tel" name="phone" required><br>
         Estado:
         <select id="state" name="state" required onchange="loadCities()">
@@ -27,4 +28,4 @@
 </body>
 </html>
 
-<script src="/js/register.js"></script>
+<script src="../js/register.js"></script>

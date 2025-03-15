@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+</head>
+<body>
+    <form action="register.php" method="POST">
+        Nombre de usuario: <input type="text" name="name" required><br>
+        Email: <input type="email" name="email" required><br>
+        Contraseña: <input type="password" name="password_hash" required><br>
+        Teléfono: <input type="tel" name="phone" required><br>
+        Estado:
+        <select id="state" name="state" required onchange="loadCities()">
+            <option value="">Seleccione un estado</option>
+        </select><br>
+
+        Ciudad:
+        <select id="city" name="city">
+            <option value="">Seleccione una ciudad</option>
+        </select><br>
+
+        <input type="submit" value="Crear cuenta">
+
+    </form>
+</body>
+</html>
+
+<script src="/js/register.js"></script>

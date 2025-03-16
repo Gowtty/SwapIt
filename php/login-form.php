@@ -19,14 +19,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         //Verificar si la contraseña coincide con el hash de la BD
         if(password_verify($password, $row['password_hash'])){
             $_SESSION['user_id'] = $row['id'];
-            header("Location: profile.php");
+            $_SESSION["mensaje"] = ["tipo" => "success", "texto" => "Inicio de sesión exitoso"];
+            header("Location: ../pages/profile.php");
             exit();
         }else{
-            echo "Contraseña incorrecta.";
+            $_SESSION["mensaje"] = ["tipo" => "error", "texto" => "Contraseña incorrecta"];
+            header("Location: ../pages/login.php");
+            exit();
         }
 
     }else {
-        echo "El correo que ingresaste no está registrado.";
+        $_SESSION["mensaje"] = ["tipo" => "error", "texto" => "El correo ingresado no se encuentra registrado"];
+        header("Location: ../pages/login.php");
+        exit();
     }
 }
     $stmt->close();

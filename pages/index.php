@@ -13,28 +13,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        
-        <a href="../pages/index.html"><img src="../src/assets/SwapitLogo.ico" alt="SwapIt Logo"></a>
-        <nav class="nav-links">
-            <ul>
-                <a href=""><li>Inicio</li></a>
-                <a href=""><li>Intercambio</li></a>
-                <a href=""><li>Acerca de</li></a>
-                <a href=""><li>Contáctanos</li></a>
-            </ul>
-        </nav>
 
-        <input type="search" placeholder="Buscar articulo">
-
-        <button class="form-button" onclick="window.location.href='login.html'">Iniciar Sesión</button>
-
-    </header>
+    <?php include '../php/header.php'; ?>
 
     <main class="main-container">
         <div class="landing-header">
             <h2>Consigue lo que necesitas, intercambia lo que no usas</h2>
-            <button class="form-button" onclick="window.location.href='../pages/register.html'">Registrate ahora</button>
+            <button class="form-button" onclick="window.location.href='../pages/register.php'">Registrate ahora</button>
         
         </div>
 
@@ -125,33 +110,6 @@
 
     </main>
 
-
-    <footer>
-        <div class="main-footer-container">
-            
-            <div class="logo-slogan">
-                <img src="../src/assets/SwapitLogo.ico" alt="">
-                <p>Consigue lo que necesitas, intercambia lo que no usas</p>
-            </div>
-        
-            <div class="footer-icons">
-                <a href="#" class="fa fa-facebook"></a>
-                <a href="#" class="fa fa-instagram"></a>
-                <a href="#" class="fa fa-linkedin"></a>
-            </div>
-            
-            <div class="footer-links">
-                <ul>
-                    <a href=""><li>Soporte</li></a>
-                    <a href=""><li>Acerca de</li></a>
-                    <a href=""><li>Contacto</li></a>
-                </ul> 
-            </div>
-        </div>
-
-        <div class="copyright-container">
-            <p>© 2025 <strong>Swapit</strong></p>
-        </div>
-    </footer>
+    <?php include '../php/footer.php'; ?>
 </body>
 </html>

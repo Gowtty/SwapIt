@@ -1,3 +1,4 @@
+<?php include '../php/header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,8 @@
     <title>Registro</title>
 </head>
 <body>
-    <form action = "../php/register.php" id = "register-form" method="POST">
+
+    <form action = "../php/register-form.php" id = "register-form" method="POST">
         Nombre de usuario: <input type="text" name="name" required><br>
         Email: <input type="email" name="email" required><br>
         Contraseña: <input id="password" type="password" name="password_hash" required><br>
@@ -26,6 +28,8 @@
 
     </form>
 </body>
+
+<?php include '../php/footer.php'; ?>
 </html>
 
 <script src="../js/register.js"></script>

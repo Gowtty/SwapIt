@@ -234,4 +234,18 @@ footer ul{
     font-size: 14px;
 }
 
+/*Notis*/
+.notificacion {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    display: none;
+    font-size: 15px;
+}
 
+.success {background-color: green;}
+.error {background-color: rgba(183, 60, 60, 0.5);}

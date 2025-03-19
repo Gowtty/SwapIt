@@ -1,10 +1,4 @@
-<?php
-session_start();
-$mensaje = isset($_SESSION["mensaje"]) ? $_SESSION["mensaje"] : null;
-unset($_SESSION["mensaje"]); // Borra el mensaje después de mostrarlo
-?>
 <?php include '../php/header.php'; ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,13 +8,7 @@ unset($_SESSION["mensaje"]); // Borra el mensaje después de mostrarlo
 </head>
 <body>
 
-
-
-    <?php if ($mensaje): ?>
-    <div class="notificacion <?php echo htmlspecialchars($mensaje["tipo"]); ?>" id="notificacion">
-        <?php echo htmlspecialchars($mensaje["texto"]); ?>
-    </div>
-    <?php endif; ?>
+    <div id="notificacion" class="notificacion"></div>
 
     <form id="login-form" action="../php/login-form.php" method="POST">
         Email: <input type="email" name="email" id="email" required><br>
@@ -31,5 +19,4 @@ unset($_SESSION["mensaje"]); // Borra el mensaje después de mostrarlo
 
 <?php include '../php/footer.php'; ?>
 </html>
-
-<script src="../js/notificacion.js"></script>
+<script src="../js/login.js"></script>

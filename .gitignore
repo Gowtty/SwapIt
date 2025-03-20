@@ -1,0 +1,17 @@
+# Ignorar archivos de configuración sensibles
+.env
+*.cnf
+
+# Ignorar logs y archivos temporales de MariaDB
+*.log
+*.pid
+*.sock
+
+# Ignorar carpetas de bases de datos locales
+mysql/
+mariadb/
+
+# Ignorar archivos de respaldo antiguos
+*.sql~
+*.bak
+*.old

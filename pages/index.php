@@ -1,20 +1,24 @@
-<!DOCTYPE html>
-<html lang="es">
+<?php
+session_start();
+
+if (isset($_SESSION['usuario_logueado']) && $_SESSION['usuario_logueado'] === true) {
+    // Si el usuario está logueado, muestra el header con opciones de usuario
+    include('../php/header-session.php');
+} else {
+    // Si el usuario no está logueado, muestra el header normal
+    include('../php/header.php');
+}
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>SwapIt</title>
-    <link rel="icon" type="image/x-icon" href="/src/assets/SwapitLogo.ico">
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
-<body>
 
-    <?php include '../php/header.php'; ?>
+
+
+<body>
 
     <main class="main-container">
         <div class="landing-header">
@@ -112,4 +116,3 @@
 
     <?php include '../php/footer.php'; ?>
 </body>
-</html>

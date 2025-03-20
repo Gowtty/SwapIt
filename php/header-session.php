@@ -26,7 +26,7 @@
 
     <input type="search" placeholder="Buscar articulo">
 
-    <button class="form-button" onclick="window.location.href='../pages/login.php'">Iniciar Sesión</button>
+    <button class="form-button" onclick="window.location.href='../php/logout.php'">Cerrar sesión</button>
 
     </header>
 <body>

@@ -23,7 +23,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         //Ejecutar SQL
         if ($conn->query($sql) == TRUE) {
             echo "Nuevo registro creado exitosamente";
-            header("Location: ../pages/login.html");
+            header("Location: ../pages/login.php");
             exit();
         }else{
             echo "Error: " . $sql . "<br>" . $conn->error;

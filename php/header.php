@@ -15,7 +15,7 @@
 <body>
     <header>
         
-    <a href="../pages/index.html"><img src="../src/assets/SwapitLogo.ico" alt="SwapIt Logo"></a>
+    <a href="../pages/index.php"><img src="../src/assets/SwapitLogo.ico" alt="SwapIt Logo"></a>
     <nav class="nav-links">
         <ul>
             <a href=""><li>Inicio</li></a>

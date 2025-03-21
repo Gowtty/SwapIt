@@ -9,15 +9,21 @@ if (!file_exists($file)) {
 //Se lee el archivo csv linea por linea saltandose la primera para extraer estado, ciudad
 if (($handle = fopen($file, "r")) !== FALSE){
     fgetcsv($handle);
-    while(($data = fgetcsv($handle, 1000, ",")) !== FALSE){
-        $state = trim($data[0]);
-        $city = trim($data[1]);
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        $state = trim($data[0]);       // Estado
+        $city = trim($data[1]);         // Ciudad
+        $postalCode = trim($data[2]);   // Código Postal
 
-        if(!isset($locations[$state])){
+        // Verificar si el estado ya existe en el array
+        if (!isset($locations[$state])) {
             $locations[$state] = [];
         }
-
-        $locations[$state][] = $city;
+        
+        // Agregar la ciudad y el código postal al array del estado
+        $locations[$state][] = [
+            'city' => $city,
+            'postal_code' => $postalCode
+        ];
     }
     fclose($handle);
 }

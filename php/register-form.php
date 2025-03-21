@@ -9,16 +9,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $phone = $_POST['phone'];
     $state = $_POST['state'];
     $city = $_POST['city'];
+    $postalcode = $_POST['postalcode'];
 
     //Validar datos del form
-    if (empty($name) || empty($email) || empty($password) || empty($phone) || empty($state) || empty($city)) {
+    if (empty($name) || empty($email) || empty($password) || empty($phone) || empty($state) || empty($city) || empty($postalcode)) {
         echo "Todos los campos son obligatorios.";
     } else {
         // Encriptar la contraseña
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         //Consulta SQL
-        $sql = "INSERT INTO users (username, email, password_hash, phone, state, city) VALUES ('$name', '$email', '$hashed_password', '$phone', '$state', '$city')";
+        $sql = "INSERT INTO users (username, email, password_hash, phone, state, city, postalcode) VALUES ('$name', '$email', '$hashed_password', '$phone', '$state', '$city', '$postalcode')";
 
         //Ejecutar SQL
         if ($conn->query($sql) == TRUE) {

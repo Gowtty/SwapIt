@@ -13,13 +13,18 @@
         Confirmar contraseña: <input id="conf_password" type="password" name="conf_password" required><br>
         Teléfono: <input type="tel" name="phone" required><br>
         Estado:
-        <select id="state" name="state" required onchange="loadCities()">
+        <select id="state" name="state" onchange="loadCities()">
             <option value="">Seleccione un estado</option>
         </select><br>
 
         Ciudad:
         <select id="city" name="city">
             <option value="">Seleccione una ciudad</option>
+        </select><br>
+
+        Código Postal:
+        <select id="postal_code" name="postal_code" required>
+            <option value="">Seleccione un código postal</option>
         </select><br>
 
         <input type="submit" value="Crear cuenta">

@@ -1,6 +1,7 @@
 <?php
 session_start();
-include 'connectDB.php'; // Incluye la conexión a la base de datos
+include 'connectDB.php'; 
+include 'resizeImage.php';
 
 $user_id = $_SESSION['user_id'];
 
@@ -17,15 +18,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Crear un array para almacenar las rutas de las imágenes subidas
         for ($i = 0; $i < $image_count; $i++) {
-            $target_dir = "../src/uploads/"; // Directorio de destino
+            $target_dir = "../src/uploads/";
             $target_file = $target_dir . basename($_FILES['image']['name'][$i]);
             $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             
-            // Validar tipo de imagen
             $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
             if (in_array($image_file_type, $allowed_types)) {
                 if (move_uploaded_file($_FILES['image']['tmp_name'][$i], $target_file)) {
-                    $image_paths[] = $target_file;
+                    //La primera imagen, la redimensionamos a miniatura
+                    if ($i == 0) {
+                        // Creamos la miniatura en una ruta separada
+                        $thumbnail_path = $target_dir . 'thumb_' . basename($_FILES['image']['name'][$i]);
+                        resizeImage($target_file, $thumbnail_path, 200, 200); // Tamaño a redimensionar
+                        $image_paths[] = $thumbnail_path; // Guardar miniatura como la primera imagen
+                    }
+                    
+                        $image_paths[] = $target_file; // Guardar imagenes sin redimensionar
+
                 } else {
                     echo "Error al subir la imagen.";
                 }
@@ -46,11 +55,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_bind_param($stmt, 'isssss', $user_id, $title, $description, $category_id, $subcategory_id, $image_paths_json);
         mysqli_stmt_execute($stmt);
 
-        // Redirigir a una página de éxito o a la lista de publicaciones
-        header("Location: ../pages/index.php"); // Cambia esto según tu flujo
+        // Obtener el ID del ítem insertado
+        $item_id = mysqli_insert_id($conn);
+            
+        // Redirigir a la página de detalles del ítem
+        header("Location: ../pages/item.php?id=" . $item_id);
         exit;
-    } else {
-        echo "Por favor, complete todos los campos.";
-    }
+        } else {
+            echo "Error al publicar el artículo.";
+        }
 }
 ?>

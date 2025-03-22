@@ -1,5 +1,6 @@
 <?php
 session_start();
+include '../php/connectDB.php';
 
 if (isset($_SESSION['usuario_logueado']) && $_SESSION['usuario_logueado'] === true) {
     // Si el usuario está logueado, muestra el header con opciones de usuario
@@ -8,6 +9,12 @@ if (isset($_SESSION['usuario_logueado']) && $_SESSION['usuario_logueado'] === tr
     // Si el usuario no está logueado, muestra el header normal
     include('../php/header.php');
 }
+
+
+// Obtener las últimas 5 publicaciones de la base de datos
+$query = "SELECT id, title, images FROM item ORDER BY id DESC LIMIT 5";
+$result = mysqli_query($conn, $query);
+$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
 <head>
@@ -36,19 +43,18 @@ if (isset($_SESSION['usuario_logueado']) && $_SESSION['usuario_logueado'] === tr
             </div>
             <div class="posts-cards">
                 
+                <?php foreach ($items as $item): 
+                    $images = json_decode($item['images'], true);
+                    $firstImage = $images[0] ?? '../src/default.jpg';
+                ?>
                 <div class="card">
-                    <a href=""><img src="" alt=""></a>
+                    <a href="item.php?id=<?php echo $item['id']; ?>">
+                        <img src="<?php echo htmlspecialchars($firstImage); ?>" 
+                        alt="<?php echo htmlspecialchars($item['title']); ?>" 
+                        />
+                    </a>
                 </div>
-                <div class="card">
-                    <a href=""><img src="" alt=""></a>
-                </div>
-                <div class="card">
-                    <a href=""><img src="" alt=""></a>
-                </div>
-                <div class="card">
-                    <a href=""><img src="" alt=""></a>
-                </div>
-                <div class="card">
+                <?php endforeach; ?>
                     
                 </div>
             </div>

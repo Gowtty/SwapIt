@@ -17,8 +17,8 @@
     <a href="../pages/index.php"><img src="../src/assets/SwapitLogo.ico" alt="SwapIt Logo"></a>
     <nav class="nav-links">
         <ul>
-            <a href=""><li>Inicio</li></a>
-            <a href=""><li>Intercambio</li></a>
+            <a href="../pages/index.php"><li>Inicio</li></a>
+            <a href="../pages/create-item.php"><li>Intercambio</li></a>
             <a href=""><li>Acerca de</li></a>
             <a href=""><li>Contáctanos</li></a>
         </ul>

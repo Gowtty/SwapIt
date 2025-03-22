@@ -21,12 +21,7 @@
         <select id="city" name="city">
             <option value="">Seleccione una ciudad</option>
         </select><br>
-
-        Código Postal:
-        <select id="postal_code" name="postal_code" required>
-            <option value="">Seleccione un código postal</option>
-        </select><br>
-
+        
         <input type="submit" value="Crear cuenta">
 
     </form>

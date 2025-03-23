@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Si el login es exitoso, redirigir después de 1 segundo
             if (data.tipo === "success") {
                 setTimeout(() => {
-                    window.location.href = "../pages/profile.php";
+                    window.location.href = "/pages/profile.php";
                 }, 1000);
             }
         })

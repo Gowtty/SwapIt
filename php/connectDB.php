@@ -2,7 +2,7 @@
 
 $servername = "localhost"; 
 $username = "root";
-$password = "jeanmay";
+$password = "";
 $dbname = "SwapIt";
 
 // Connect

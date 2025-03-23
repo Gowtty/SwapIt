@@ -19,8 +19,8 @@
         <ul>
             <a href="../pages/index.php"><li>Inicio</li></a>
             <a href="../pages/create-item.php"><li>Intercambio</li></a>
-            <a href=""><li>Acerca de</li></a>
-            <a href=""><li>Contáctanos</li></a>
+            <a href="../pages/aboutus.php"><li>Acerca de</li></a>
+            <a href="../pages/contact.php"><li>Contáctanos</li></a>
         </ul>
     </nav>
 

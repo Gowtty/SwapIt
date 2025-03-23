@@ -17,9 +17,9 @@
             
             <div class="footer-links">
                 <ul>
-                    <a href=""><li>Soporte</li></a>
-                    <a href=""><li>Acerca de</li></a>
-                    <a href=""><li>Contacto</li></a>
+                    <a href="../pages/contact.php"><li>Soporte</li></a>
+                    <a href="../pages/aboutus.php"><li>Acerca de</li></a>
+                    <a href="../pages/contact.php"><li>Contacto</li></a>
                 </ul> 
             </div>
         </div>

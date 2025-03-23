@@ -19,7 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $row = $result->fetch_assoc();
 
         if (password_verify($password, $row['password_hash'])) {
-            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['id'] = $row['id'];
             $_SESSION['usuario_logueado'] = true;
             echo json_encode(["tipo" => "success", "texto" => "Inicio de sesión exitoso"]);
         } else {

@@ -56,34 +56,6 @@ $stmt_swaps->close();
             <a href="#">Editar Perfil</a>
         </div>
     </div>
-
-    <div id="mis-swaps">
-        <div>
-            <div>
-                <h4>Mis Swaps</h4>
-            </div>
-            <div>
-                <?php if (count($swaps) > 0): ?>
-                    <?php foreach ($swaps as $swap): ?>
-                        <div>
-                            <div>
-                                <?php if (isset($swap['images'])): ?>
-                                    <img src="<?php echo htmlspecialchars($swap['images']); ?>" alt="<?php echo htmlspecialchars($swap['title']); ?>">
-                                <?php endif; ?>
-                                <div>
-                                    <h5 ><?php echo htmlspecialchars($swap['title']); ?></h5>
-                                    <p><?php echo htmlspecialchars($swap['description']); ?></p>
-                                    <p>Publicado el: <?php echo htmlspecialchars($swap['created_at']); ?></p>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>No tienes swaps registrados aún.</p>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
 </div>
 
         </div>

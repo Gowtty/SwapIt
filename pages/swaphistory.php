@@ -44,10 +44,18 @@ $stmt->close();
                 <?php foreach ($historial as $swap): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($swap['id']); ?></td>
-                        <td><?php echo htmlspecialchars($swap['title']); ?></td>
+                        <td>
+                            <a href="item.php?id=<?php echo htmlspecialchars($swap['id']); ?>">
+                            <?php echo htmlspecialchars($swap['title']); ?>
+                            </a>
+                        </td>
                         <td><?php echo htmlspecialchars($swap['created_at']); ?></td>
                         <td><?php echo htmlspecialchars($swap['status']); ?></td>
-                        <td><?php echo htmlspecialchars($swap['images']); ?></td>
+                        <?php 
+                            $imagenes = json_decode($swap['images'], true); // Convertimos JSON a array para mostrar las imagenes
+                            $imagenPrincipal = $imagenes[0] ?? '../src/default.jpg'; // Tomamos la primera imagen del array
+                        ?>
+                        <td><img src="<?php echo htmlspecialchars($imagenPrincipal); ?>" alt="Imagen del swap" width="100"></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

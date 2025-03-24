@@ -84,21 +84,6 @@ $stmt_swaps->close();
             </div>
         </div>
     </div>
-
-    <!-- Sección Historial de Swaps (placeholder) -->
-    <div id="historial">
-        <div>
-            <h4>Historial de Swaps</h4>
-            <p>Esta sección estará disponible pronto.</p>
-        </div>
-    </div>
-
-    <!-- Sección Configuración (placeholder) -->
-    <div id="configuracion">
-        <div>
-        <button onclick="window.location.href='../pages/user-config.php'">Configuracion</button>            
-        </div>
-    </div>
 </div>
 
         </div>

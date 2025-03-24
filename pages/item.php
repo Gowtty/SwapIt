@@ -17,7 +17,7 @@ $query = "
     SELECT item.*, 
            categories.name AS category_name, 
            subcategories.name AS subcategory_name, 
-           users.username, 
+           users.username,
            users.id AS owner_id
     FROM item
     LEFT JOIN categories ON item.category_id = categories.id

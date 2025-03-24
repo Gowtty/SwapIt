@@ -2,8 +2,8 @@
 
 $servername = "localhost"; 
 $username = "root";
-$password = "jeanmay";
-$dbname = "SwapIt";
+$password = "";
+$dbname = "SwapIt2";
 
 // Connect
 

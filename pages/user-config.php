@@ -1,7 +1,8 @@
 <?php
+session_start();
 include '../php/connectDB.php';
 include '../php/login-verify.php';
-include '../php/header-session.php';
+include '../php/checkSession.php';
 
 $usuario_id = $_SESSION['user_id'];
 

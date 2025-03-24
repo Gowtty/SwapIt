@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../php/connectDB.php';
 include '../php/login-verify.php';
 

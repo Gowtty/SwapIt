@@ -25,8 +25,10 @@
     </nav>
 
     <input type="search" placeholder="Buscar articulo">
-
-    <button class="form-button" onclick="window.location.href='../php/logout.php'">Cerrar sesión</button>
+    <div class="nav-buttons">
+        <button class="form-button" onclick="window.location.href='../pages/profile.php'">Mi Perfil</button>
+        <button class="form-button" onclick="window.location.href='../php/logout.php'">Cerrar sesión</button>
+    </div>
 
     </header>
 <body>

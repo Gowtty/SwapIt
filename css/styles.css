@@ -32,6 +32,15 @@ nav ul{
     list-style: none;
 }
 
+.nav-buttons{
+    align-self: center;
+}
+
+.nav-buttons button{
+    margin: 5px;
+}
+
+
 header a{
     text-decoration: none;
     color: #005168;

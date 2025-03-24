@@ -1,6 +1,9 @@
-<?php include '../php/login-verify.php'; ?>
-<?php include '../php/connectDB.php'; ?>
-<?php include '../php/header-session.php'; ?>
+<?php 
+session_start();
+include '../php/login-verify.php';
+include '../php/connectDB.php';
+include '../php/header-session.php'; 
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

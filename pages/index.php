@@ -1,15 +1,7 @@
 <?php
 session_start();
 include '../php/connectDB.php';
-
-if (isset($_SESSION['usuario_logueado']) && $_SESSION['usuario_logueado'] === true) {
-    // Si el usuario está logueado, muestra el header con opciones de usuario
-    include('../php/header-session.php');
-} else {
-    // Si el usuario no está logueado, muestra el header normal
-    include('../php/header.php');
-}
-
+include '../php/checkSession.php';
 
 // Obtener las últimas 5 publicaciones de la base de datos
 $query = "SELECT id, title, images FROM item ORDER BY id DESC LIMIT 5";

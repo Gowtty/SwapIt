@@ -1,5 +1,5 @@
 <?php
-include 'connectDB.php';
+include '../php/connectDB.php';
 
 // Verificar si se ha enviado el parámetro category_id
 if (isset($_GET['category']) && !empty($_GET['category'])) {

@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'connectDB.php'; 
-include 'resizeImage.php';
+include '../php/connectDB.php'; 
+include '../php/resizeImage.php';
 
 $user_id = $_SESSION['user_id'];
 

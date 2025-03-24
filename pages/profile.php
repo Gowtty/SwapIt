@@ -38,6 +38,7 @@ $stmt_swaps->close();
                 <li><a href="profile.php#mis-swaps">Mis Swaps</a></li>
                 <li><a href="create-item.php">Crear Swap</a></li>
                 <li><a href="../pages/swaphistory.php">Historial de Swaps</a></li>
+                <li><a href="../pages/my-offers.php">Ofertas recibidas</a></li>
                 <li><a href="../pages/user-config.php">Configuración</a></li>
                 <li><hr></li>
                 <li><a href="../php/logout.php">Cerrar Sesión</a></li>

@@ -11,13 +11,20 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 }
 
 $item_id = intval($_GET['id']); // Asegurar que el ID es un número
+$user_id = $_SESSION['user_id'] ?? null; 
 
-// Obtener los detalles del ítem desde la base de datos
-$query = "SELECT item.*, categories.name AS category_name, users.username
-          FROM item 
-          LEFT JOIN categories ON item.category_id = categories.id
-          LEFT JOIN users ON item.user_id = users.id
-          WHERE item.id = ?";
+$query = "
+    SELECT item.*, 
+           categories.name AS category_name, 
+           subcategories.name AS subcategory_name, 
+           users.username, 
+           users.id AS owner_id
+    FROM item
+    LEFT JOIN categories ON item.category_id = categories.id
+    LEFT JOIN categories AS subcategories ON item.subcategory_id = subcategories.id
+    LEFT JOIN users ON item.user_id = users.id
+    WHERE item.id = ?";
+    
 $stmt = mysqli_prepare($conn, $query);
 mysqli_stmt_bind_param($stmt, 'i', $item_id);
 mysqli_stmt_execute($stmt);
@@ -25,17 +32,15 @@ $result = mysqli_stmt_get_result($stmt);
 $item = mysqli_fetch_assoc($result);
 
 // Verificar si el ítem existe
-if ($result->num_rows === 0) {
+if (!$item) {
     echo "Ítem no encontrado.";
     exit;
 }
 
 $images = json_decode($item['images'], true);
+$isOwner = ($user_id == $item['owner_id']);
 ?>
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($item['title']); ?></title>
 </head>
 
@@ -43,6 +48,7 @@ $images = json_decode($item['images'], true);
     <h1><?php echo htmlspecialchars($item['title']); ?></h1>
     <p><strong>Categoría:</strong> <?php echo htmlspecialchars($item['category_name']); ?></p>
     <p><strong>Descripción:</strong> <?php echo nl2br(htmlspecialchars($item['description'])); ?></p>
+    <p><strong>Subcategoría:</strong> <?php echo htmlspecialchars($item['subcategory_name']); ?></p>
 
     <?php if (!empty($images)): ?>
         <h2>Imágenes</h2>
@@ -57,6 +63,16 @@ $images = json_decode($item['images'], true);
     <div class="user-info">
         <h3>Publicado por:</h3>
         <p><strong>Usuario:</strong> <?php echo htmlspecialchars($item['username']); ?></p>
+    </div>
+
+    <!-- Opciones según si el usuario es el dueño o no -->
+    <div class="actions">
+        <?php if ($isOwner): ?>
+            <a href="../pages/edit-item.php?id=<?php echo $item_id; ?>">Editar</a>
+            <a href="../pages/delete-item.php?id=<?php echo $item_id; ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar este ítem?');">Eliminar</a>
+        <?php else: ?>
+            <a href="../pages/make-offer.php?id=<?php echo $item_id; ?>">Hacer oferta</a>
+        <?php endif; ?>
     </div>
 
     <a href="../pages/index.php">Volver a la lista</a>

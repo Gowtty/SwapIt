@@ -22,8 +22,10 @@ $items = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <main class="main-container">
         <div class="landing-header">
             <h2>Consigue lo que necesitas, intercambia lo que no usas</h2>
-            <button class="form-button" onclick="window.location.href='../pages/register.php'">Registrate ahora</button>
-        
+            <?php if (!isset($_SESSION['usuario_logueado']) || $_SESSION['usuario_logueado'] !== true): ?>
+                <!-- Si el usuario NO está logueado, muestra el botón -->
+                <button class="form-button" onclick="window.location.href='../pages/register.php'">Regístrate ahora</button>
+            <?php endif; ?>
         </div>
 
         <section class="divide-section"></section>

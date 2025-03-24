@@ -16,7 +16,7 @@ include '../php/header-session.php';
         Categoria: <select id="category" name="category">
                         <option value="">Seleccione una categoria</option>
                         <?php
-                            // Consultar las categorías principales (parent_id IS NULL)
+                        
                             $queryCategories = "SELECT id, name FROM categories WHERE parent_id IS NULL";
                             $resultCategories = $conn->query($queryCategories);
 

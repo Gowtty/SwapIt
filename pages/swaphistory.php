@@ -22,13 +22,13 @@ $stmt->close();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Historial de Swaps</title>
+    <title>Mis Swaps</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <?php include '../php/header-session.php'; ?>
 <div class="container mt-5">
-    <h2>Historial de Swaps</h2>
+    <h2>Mis Swaps</h2>
     <?php if (count($historial) > 0): ?>
         <table class="table table-striped mt-4">
             <thead>

@@ -10,16 +10,16 @@
             </div>
         
             <div class="footer-icons">
-                <a href="#" class="fa fa-facebook"></a>
-                <a href="#" class="fa fa-instagram"></a>
-                <a href="#" class="fa fa-linkedin"></a>
+                <a href="#" class="fa-brands fa-facebook"></a>
+                <a href="#" class="fa-brands fa-instagram"></a>
+                <a href="#" class="fa-brands fa-linkedin"></a>
             </div>
             
             <div class="footer-links">
                 <ul>
-                    <a href=""><li>Soporte</li></a>
-                    <a href=""><li>Acerca de</li></a>
-                    <a href=""><li>Contacto</li></a>
+                    <a href="../pages/contact.php"><li>Soporte</li></a>
+                    <a href="../pages/aboutus.php"><li>Acerca de</li></a>
+                    <a href="../pages/contact.php"><li>Contacto</li></a>
                 </ul> 
             </div>
         </div>

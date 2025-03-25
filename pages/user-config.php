@@ -1,13 +1,10 @@
 <?php
 session_start();
 include '../php/connectDB.php';
+include '../php/checkSession.php';
+include '../php/login-verify.php';
 
-if (!isset($_SESSION['id'])) {
-    header("Location: login.php");
-    exit();
-}
-
-$usuario_id = $_SESSION['id'];
+$usuario_id = $_SESSION['user_id'];
 
 // Obtener datos actuales del usuario
 $query = "SELECT username, email FROM users WHERE id = ?";
@@ -21,12 +18,10 @@ $stmt->close();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
     <title>Configuración de Cuenta</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<?php include '../php/header-session.php'; ?>
 <div class="container mt-5">
     <h2>Configuración de Cuenta</h2>
 <!--Alerta exitosa -->
@@ -34,7 +29,7 @@ $stmt->close();
     ¡Tus datos han sido actualizados correctamente!
 </div>
 
-<form id="form-configuracion" action="../pages/update-config.php" method="POST" class="mt-4">
+<form id="form-configuracion" action="../php/update-config.php" method="POST" class="mt-4">
     <!-- Nombre de usuario -->
     <div class="mb-3">
         <label for="username" class="form-label">Nombre de Usuario</label>
@@ -57,7 +52,7 @@ $stmt->close();
         <input type="password" class="form-control" id="confirmar_contrasena" name="confirmar_contrasena">
     </div>
 
-    <button class="btn btn-primary" onclick="window.location.href='../pages/profile.php'">Regresar</button>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='../pages/profile.php'">Regresar</button>
     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
 </form>
 </div>

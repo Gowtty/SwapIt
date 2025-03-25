@@ -18,7 +18,8 @@ $query = "
            categories.name AS category_name, 
            subcategories.name AS subcategory_name, 
            users.username,
-           users.id AS owner_id
+           users.id AS owner_id,
+           item.status AS item_status
     FROM item
     LEFT JOIN categories ON item.category_id = categories.id
     LEFT JOIN categories AS subcategories ON item.subcategory_id = subcategories.id
@@ -49,6 +50,7 @@ $isOwner = ($user_id == $item['owner_id']);
     <p><strong>Categoría:</strong> <?php echo htmlspecialchars($item['category_name']); ?></p>
     <p><strong>Descripción:</strong> <?php echo nl2br(htmlspecialchars($item['description'])); ?></p>
     <p><strong>Subcategoría:</strong> <?php echo htmlspecialchars($item['subcategory_name']); ?></p>
+    <p><strong>Estado:</strong> <?php echo htmlspecialchars($item['item_status']); ?></p>
 
     <?php if (!empty($images)): ?>
         <h2>Imágenes</h2>

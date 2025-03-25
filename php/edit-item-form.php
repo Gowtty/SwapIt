@@ -32,21 +32,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = $_POST['description'];
     $category_id = $_POST['category'];
     $subcategory_id = $_POST['subcategory'];
+    $item_status = $_POST['item_status'];
 
-    // Obtener las imágenes actuales y eliminarlas
-    $current_images = json_decode($item['images'], true);
-    if ($current_images && is_array($current_images)) {
-        foreach ($current_images as $image) {
-            // Eliminar las imágenes anteriores del servidor
-            if (file_exists($image)) {
-                unlink($image);
-            }
-        }
+    $image_paths = json_decode($item['images'], true);
+
+    // Si el JSON es `null`, inicializar como un array vacío
+    if (!is_array($image_paths)) {
+        $image_paths = [];
     }
 
-    $image_paths = [];
+  
 
     if (isset($_FILES['image']) && !empty($_FILES['image']['name'][0])) {
+
+        // Si subió imágenes, eliminar las anteriores
+        foreach ($image_paths as $image) {
+            if (file_exists($image)) {
+                unlink($image);  // Borra la imagen del servidor
+            }
+        }
+
+        $image_paths = [];
         $image_count = count($_FILES['image']['name']);
         $target_dir = "../src/uploads/";
 
@@ -72,12 +78,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     }
+    
+    $image_paths_json = !empty($image_paths) ? json_encode($image_paths) : $item['images']; 
 
-    $image_paths_json = json_encode($image_paths);
-
-    $query = "UPDATE item SET title=?, description=?, category_id=?, subcategory_id=?, images=? WHERE id=? AND user_id=?";
+    $query = "UPDATE item SET title=?, description=?, category_id=?, subcategory_id=?, images=?, status = ? WHERE id=? AND user_id=?";
     $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, 'ssssssi', $title, $description, $category_id, $subcategory_id, $image_paths_json, $item_id, $user_id);
+    mysqli_stmt_bind_param($stmt, 'sssissii', $title, $description, $category_id, $subcategory_id, $image_paths_json, $item_status, $item_id, $user_id);
     mysqli_stmt_execute($stmt);
 
     header("Location: ../pages/item.php?id=" . $item_id);

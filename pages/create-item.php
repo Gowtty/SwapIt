@@ -2,7 +2,7 @@
 session_start();
 include '../php/login-verify.php';
 include '../php/connectDB.php';
-include '../php/header-session.php'; 
+include '../php/checkSession.php'; 
 ?>
 <head>
     <meta charset="UTF-8">

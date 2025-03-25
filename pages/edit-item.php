@@ -12,7 +12,8 @@ if (!$item_id) {
 }
 
 // Obtener los datos del ítem para editarlo
-$query = "SELECT item.*, categories.name AS category_name
+$query = "SELECT item.*, categories.name AS category_name,
+            item.status AS item_status
           FROM item
           LEFT JOIN categories ON item.category_id = categories.id
           WHERE item.id = ? AND item.user_id = ?";
@@ -36,6 +37,13 @@ $stmtSubcategories = mysqli_prepare($conn, $querySubcategories);
 mysqli_stmt_bind_param($stmtSubcategories, 'i', $item['category_id']);
 mysqli_stmt_execute($stmtSubcategories);
 $resultSubcategories = mysqli_stmt_get_result($stmtSubcategories);
+
+// Obtener los valores del ENUM 'status'
+$queryEnum = "SHOW COLUMNS FROM item LIKE 'status'";
+$resultEnum = $conn->query($queryEnum);
+$rowEnum = $resultEnum->fetch_assoc();
+preg_match("/^enum\((.*)\)$/", $rowEnum['Type'], $matches);
+$enum_values = str_getcsv($matches[1], ",", "'");
 ?>
 
 <head>
@@ -78,9 +86,21 @@ $resultSubcategories = mysqli_stmt_get_result($stmtSubcategories);
         Fotografías: 
         <input type="file" name="image[]" id="image" multiple><br>
 
+        Estado: 
+        <select name="item_status" id="item_status">
+            <?php foreach ($enum_values as $value): ?>
+                <option value="<?= $value ?>" <?= ($item['item_status'] == $value) ? 'selected' : '' ?>>
+                    <?= ucfirst($value) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
         <input type="hidden" name="item_id" value="<?php echo $item_id; ?>">
         <input type="submit" value="Actualizar publicación">
+
+       
     </form>
+        
 
     <a href="item.php?id=<?php echo $item_id; ?>">Volver al ítem</a>
 </body>

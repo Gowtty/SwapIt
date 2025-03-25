@@ -11,7 +11,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 }
 
 $item_id = intval($_GET['id']); // Asegurar que el ID es un número
-$user_id = $_SESSION['user_id'] ?? null; 
+$user_id = $_SESSION['user_id'] ?? null;
 
 $query = "
     SELECT item.*, 

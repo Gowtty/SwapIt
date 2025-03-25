@@ -11,7 +11,7 @@ $query = "SELECT o.id AS offer_id, o.offered_by, o.item_id, o.offered_item_id, o
           FROM offers o
           JOIN item i ON o.item_id = i.id
           JOIN item offered_item ON o.offered_item_id = offered_item.id
-          WHERE i.user_id = ?"; // Obtener solo las ofertas que corresponden a los artículos del usuario
+          WHERE i.user_id = ?";
 $stmt = mysqli_prepare($conn, $query);
 mysqli_stmt_bind_param($stmt, 'i', $user_id);
 mysqli_stmt_execute($stmt);
@@ -31,7 +31,6 @@ $offers_result = mysqli_stmt_get_result($stmt);
         </tr>
         <?php while ($offer = mysqli_fetch_assoc($offers_result)): ?>
             <?php
-                // Obtener detalles del usuario que hizo la oferta
                 $query_user = "SELECT username FROM users WHERE id = ?";
                 $stmt_user = mysqli_prepare($conn, $query_user);
                 mysqli_stmt_bind_param($stmt_user, 'i', $offer['offered_by']);

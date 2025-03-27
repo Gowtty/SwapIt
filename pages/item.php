@@ -3,10 +3,10 @@ session_start();
 include '../php/connectDB.php';
 include '../php/checkSession.php';
 
-
 // Verificar si el parámetro ID está presente
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    echo "ID de ítem no proporcionado.";
+    echo("ID de ítem no proporcionado.");
+    header("Location: index.php");
     exit;
 }
 
@@ -34,7 +34,8 @@ $item = mysqli_fetch_assoc($result);
 
 // Verificar si el ítem existe
 if (!$item) {
-    echo "Ítem no encontrado.";
+    echo("Ítem no encontrado.");
+    header("Location: index.php");
     exit;
 }
 
@@ -46,6 +47,7 @@ $isOwner = ($user_id == $item['owner_id']);
 </head>
 
 <body>
+    
     <h1><?php echo htmlspecialchars($item['title']); ?></h1>
     <p><strong>Categoría:</strong> <?php echo htmlspecialchars($item['category_name']); ?></p>
     <p><strong>Descripción:</strong> <?php echo nl2br(htmlspecialchars($item['description'])); ?></p>

@@ -1,7 +1,6 @@
 <?php
 session_start();
 include '../php/connectDB.php';
-include '../php/checkSession.php';
 
 if (!isset($_SESSION['user_id'])) {
     echo "Debes iniciar sesión para rechazar una oferta.";

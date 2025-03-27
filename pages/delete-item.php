@@ -3,6 +3,7 @@ session_start();
 include '../php/connectDB.php';
 include '../php/checkSession.php';
 include '../php/login-verify.php';
+include '../php/notifications.php';
 
 $user_id = $_SESSION['user_id'];
 
@@ -24,6 +25,13 @@ $item = mysqli_fetch_assoc($result);
 
 if (!$item) {
     echo "Ítem no encontrado o no tienes permiso para eliminarlo.";
+    exit;
+}
+
+// Verificar si el ítem está reservado
+if ($item['status'] === 'Reservado') {
+    echo("No puedes eliminar un ítem que está reservado.", "error");
+    header("Location: ../pages/swaphistory.php");
     exit;
 }
 
@@ -54,7 +62,6 @@ if ($execute) {
     echo "Error al eliminar el ítem.";
 }
 
-// Redirigir al usuario a la página principal o a la lista de ítems
-header("Location: ../pages/index.php"); // Redirige donde necesites
+header("Location: ../pages/swaphistory.php");
 exit;
 ?>

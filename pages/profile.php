@@ -36,7 +36,7 @@ $stmt_swaps->close();
             <ul>
                 <li><a href="../pages/swaphistory.php">Mis Articulos</a></li>
                 <li><a href="create-item.php">Subir articulo</a></li>
-                <li><a href="../pages/my-offers.php">Ofertas recibidas</a></li>
+                <li><a href="../pages/my-offers.php">Mis Ofertas</a></li>
                 <li><a href="../pages/user-config.php">Configuración</a></li>
                 <li><a href="../php/logout.php">Cerrar Sesión</a></li>
             </ul>

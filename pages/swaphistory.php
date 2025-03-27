@@ -2,7 +2,6 @@
 session_start();
 include '../php/connectDB.php';
 include '../php/checkSession.php';
-include '../php/login-verify.php';
 
 // Obtener historial de swaps de la tabla items
 $usuario_id = $_SESSION['user_id'];
@@ -33,6 +32,7 @@ $stmt->close();
                     <th>Fecha</th>
                     <th>Estado</th>
                     <th>Imagen</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,9 +40,7 @@ $stmt->close();
                     <tr>
                         <td><?php echo htmlspecialchars($swap['id']); ?></td>
                         <td>
-                            <a href="item.php?id=<?php echo htmlspecialchars($swap['id']); ?>">
                             <?php echo htmlspecialchars($swap['title']); ?>
-                            </a>
                         </td>
                         <td><?php echo htmlspecialchars($swap['created_at']); ?></td>
                         <td><?php echo htmlspecialchars($swap['status']); ?></td>
@@ -51,6 +49,16 @@ $stmt->close();
                             $imagenPrincipal = $imagenes[0] ?? '../src/default.jpg'; // Tomamos la primera imagen del array
                         ?>
                         <td><img src="<?php echo htmlspecialchars($imagenPrincipal); ?>" alt="Imagen del swap" width="100"></td>
+                        <td>
+                            <a href="item.php?id=<?php echo htmlspecialchars($swap['id']); ?>">
+                                Ver
+                            </a>
+                            <a href="edit-item.php?id=<?php echo htmlspecialchars($swap['id']); ?>">
+                                Editar
+                            </a>
+                            <a href="delete-item.php?id=<?php echo htmlspecialchars($swap['id']); ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar este artículo?');">
+                                Eliminar
+                            </a>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

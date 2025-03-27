@@ -46,3 +46,4 @@ $offered_items_result = mysqli_stmt_get_result($stmt);
     <br>
     <input type="submit" value="Enviar oferta">
 </form>
+<script src="../js/offer-actions.js"></script>

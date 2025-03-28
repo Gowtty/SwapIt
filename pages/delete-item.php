@@ -30,7 +30,7 @@ if (!$item) {
 
 // Verificar si el ítem está reservado
 if ($item['status'] === 'Reservado') {
-    echo("No puedes eliminar un ítem que está reservado.", "error");
+    echo("No puedes eliminar un ítem que está reservado.");
     header("Location: ../pages/swaphistory.php");
     exit;
 }

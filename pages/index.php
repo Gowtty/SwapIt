@@ -9,110 +9,130 @@ $result = mysqli_query($conn, $query);
 $items = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwapIt</title>
-</head>
-
-
-
-<body>
-
-    <main class="main-container">
-        <div class="landing-header">
-            <h2>Consigue lo que necesitas, intercambia lo que no usas</h2>
-            <?php if (!isset($_SESSION['usuario_logueado']) || $_SESSION['usuario_logueado'] !== true): ?>
-                <!-- Si el usuario NO está logueado, muestra el botón -->
-                <button class="form-button" onclick="window.location.href='../pages/register.php'">Regístrate ahora</button>
-            <?php endif; ?>
-        </div>
-
-        <section class="divide-section"></section>
-        <cite><h2>"Intercambia lo que tienes por lo que sueñas."</h2></cite>
-        <div class="posts-box">
-            <div class="posts-box-title">
-                <h3>Últimas publicaciones</h3>
-                <a href="">Ver más</a>
-            </div>
-            <div class="posts-cards">
-                
-                <?php foreach ($items as $item): 
-                    $images = json_decode($item['images'], true);
-                    $firstImage = $images[0] ?? '../src/default.jpg';
-                ?>
-                <div class="card">
-                    <a href="item.php?id=<?php echo $item['id']; ?>">
-                        <img src="<?php echo htmlspecialchars($firstImage); ?>" 
-                        alt="<?php echo htmlspecialchars($item['title']); ?>" 
-                        />
+<div class="container-fluid py-5">
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Bienvenido a SwapIt</h1>
+                <p class="lead mb-4">Tu plataforma de confianza para intercambiar artículos de manera segura y fácil.</p>
+                <div class="d-flex gap-3">
+                    <a href="create-item.php" class="btn btn-primary btn-lg">
+                        <i class="fas fa-upload me-2"></i>Subir Artículo
+                    </a>
+                    <a href="aboutus.php" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-info-circle me-2"></i>Conocer más
                     </a>
                 </div>
-                <?php endforeach; ?>
-                    
-                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="../src/assets/hero.png" alt="SwapIt Hero" class="img-fluid rounded shadow">
             </div>
         </div>
 
-        <cite><section></section></cite>
-
-        <div class="posts-box">
-            <div class="posts-box-title">
-                <h3>Swaps relacionados a tus últimas búsquedas</h3>
-                <a href="">Ver más</a>
-            </div>
-            <div class="posts-cards">
+        <!-- Featured Items Section -->
+        <div class="mb-5">
+            <h2 class="h3 mb-4">Publicaciones recientes</h2>
+            <div class="row g-4">
+                <?php
+                $query = "SELECT i.*, u.username, c.name as category_name 
+                         FROM item i 
+                         JOIN users u ON i.user_id = u.id 
+                         LEFT JOIN categories c ON i.category_id = c.id 
+                         WHERE i.status = 'Disponible' 
+                         ORDER BY i.created_at DESC 
+                         LIMIT 6";
                 
-                <div class="card">
-                    <a href=""><img src="" alt=""></a>
-                </div>
-                <div class="card">
-                    <a href=""><img src="" alt=""></a>
-                </div>
-                <div class="card">
-                    <a href=""><img src="" alt=""></a>
-                </div>
-                <div class="card">
-                    <a href=""><img src="" alt=""></a>
-                </div>
-                <div class="card">
-                    
-                </div>
-            </div>
-        </div>
-
-        <cite><section></section></cite>
-
-        <div class="posts-box">
-            <div class="posts-box-title">
-                <h3>Swaps recomendados</h3>
-                <a href="">Ver más</a>
-            </div>
-            <div class="posts-cards">
+                $result = mysqli_query($conn, $query);
                 
-                <div class="card">
-                    <a href=""><img src="" alt=""></a>
-                </div>
-                <div class="card">
-                    <a href=""><img src="" alt=""></a>
-                </div>
-                <div class="card">
-                    <a href=""><img src="" alt=""></a>
-                </div>
-                <div class="card">
-                    <a href=""><img src="" alt=""></a>
-                </div>
-                <div class="card">
-                    
-                </div>
+                if ($result && mysqli_num_rows($result) > 0) {
+                    while ($item = mysqli_fetch_assoc($result)) {
+                        $images = json_decode($item['images'], true);
+                        $firstImage = !empty($images) ? $images[0] : '../src/default.jpg';
+                        ?>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm">
+                                <img src="<?php echo htmlspecialchars($firstImage); ?>" 
+                                     class="card-img-top" 
+                                     alt="<?php echo htmlspecialchars($item['title']); ?>"
+                                     style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo htmlspecialchars($item['title']); ?></h5>
+                                    <p class="card-text text-muted">
+                                        <small>
+                                            <i class="fas fa-user me-1"></i><?php echo htmlspecialchars($item['username']); ?>
+                                        </small>
+                                    </p>
+                                    <p class="card-text"><?php echo htmlspecialchars(substr($item['description'], 0, 100)) . '...'; ?></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge bg-primary"><?php echo htmlspecialchars($item['category_name'] ?? 'Sin categoría'); ?></span>
+                                        <a href="item.php?id=<?php echo $item['id']; ?>" class="btn btn-outline-primary">
+                                            Ver Detalles
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    echo '<div class="col-12"><p class="text">No hay artículos disponibles en este momento.</p></div>';
+                }
+                ?>
             </div>
         </div>
 
-        <cite><section></section></cite>
-        
-        <section class="divide-section"></section>
+        <!-- Categories Section -->
+        <div class="mb-5">
+            <h2 class="h3 mb-4">Categorías Populares</h2>
+            <div class="row g-4">
+                <?php
+                $categories = ['Electrónica', 'Ropa y Moda', 'Libros', 'Hogar', 'Muebles'];
+                foreach ($categories as $category) {
+                    ?>
+                    <div class="col-md-4 col-lg-2">
+                        <a href="search.php?category=<?php echo urlencode($category); ?>" 
+                           class="card text-decoration-none text-center h-100 shadow-sm hover-lift">
+                            <div class="card-body">
+                                <i class="fas fa-folder fa-2x text-primary mb-2"></i>
+                                <h5 class="card-title mb-0"><?php echo $category; ?></h5>
+                            </div>
+                        </a>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
 
-    </main>
+        <!-- Features Section -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-star fa-3x text-primary mb-3"></i>
+                        <h3 class="h5">Sistema de Calificaciones</h3>
+                        <p class="text-muted">Evalúa y confía en otros usuarios.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <?php include '../php/footer.php'; ?>
-</body>
+<style>
+    .hover-lift {
+        transition: transform 0.2s ease-in-out;
+    }
+    .hover-lift:hover {
+        transform: translateY(-5px);
+    }
+    .card {
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+</style>
+
+<?php include '../php/footer.php'; ?>

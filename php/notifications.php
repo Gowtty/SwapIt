@@ -166,12 +166,12 @@ function getNotificationIcon($type) {
     }
 
     .confirmation-button.confirm {
-        background-color: #dc3545;
+        background-color:rgb(63, 172, 1);
         color: white;
     }
 
     .confirmation-button.confirm:hover {
-        background-color: #c82333;
+        background-color:rgb(10, 113, 27);
     }
 
     .confirmation-button.cancel {

@@ -99,7 +99,10 @@ $items = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                     <h5 class="card-title"><?php echo htmlspecialchars($item['title']); ?></h5>
                                     <p class="card-text text-muted">
                                         <small>
-                                            <i class="fas fa-user me-1"></i><?php echo htmlspecialchars($item['username']); ?>
+                                            <i class="fas fa-user me-1"></i>
+                                            <a href="view-profile.php?id=<?php echo $item['user_id']; ?>" class="text-decoration-none">
+                                                <?php echo htmlspecialchars($item['username']); ?>
+                                            </a>
                                         </small>
                                     </p>
                                     <p class="card-text"><?php echo htmlspecialchars(substr($item['description'], 0, 100)) . '...'; ?></p>

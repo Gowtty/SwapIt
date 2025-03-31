@@ -203,7 +203,9 @@ if (!empty($search_query)) {
                             <div class="item-meta">
                                 <div class="item-user">
                                     <i class="fas fa-user"></i>
-                                    <span><?php echo htmlspecialchars($item['username']); ?></span>
+                                    <a href="view-profile.php?id=<?php echo $item['user_id']; ?>" class="text-decoration-none">
+                                        <?php echo htmlspecialchars($item['username']); ?>
+                                    </a>
                                 </div>
                                 <a href="item.php?id=<?php echo $item['id']; ?>" class="view-item-btn">
                                     <i class="fas fa-eye"></i> Ver

@@ -1,8 +1,9 @@
 <?php
 session_start();
+include '../php/login-verify.php';
 include '../php/connectDB.php';
 include '../php/checkSession.php';
-include '../php/login-verify.php';
+
 
 // Check database connection
 if (!$conn) {

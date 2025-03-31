@@ -227,7 +227,11 @@ $isOwner = ($user_id == $item['owner_id']);
 
                 <div class="user-info">
                     <h3><i class="fas fa-user me-2"></i>Publicado por</h3>
-                    <p><?php echo htmlspecialchars($item['username']); ?></p>
+                    <p>
+                        <a href="view-profile.php?id=<?php echo $item['owner_id']; ?>" class="text-decoration-none">
+                            <?php echo htmlspecialchars($item['username']); ?>
+                        </a>
+                    </p>
                 </div>
 
                 <div class="actions">

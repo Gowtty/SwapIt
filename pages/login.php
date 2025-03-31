@@ -2,8 +2,8 @@
 session_start();
 include '../php/checkSession.php';
 if (isset($_SESSION['user_id'])) {
-    header("Location: ../pages/profile.php");
-    exit();
+    echo "<script>window.location.href = 'profile.php';</script>";
+    exit;
 }
 ?>
 <!DOCTYPE html>

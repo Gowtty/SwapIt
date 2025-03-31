@@ -41,22 +41,4 @@ window.onload = function () {
             console.warn(`No se encontraron ciudades para el estado: ${state}`);
         }
     });
-
-    // Validación de contraseña
-    document.getElementById('register-form').addEventListener('submit', function (event) {
-        if (!validatePassword()) {
-            event.preventDefault();
-        }
-    });
-
-    function validatePassword() {
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('conf_password').value;
-
-        if (password !== confirmPassword) {
-            alert('Las contraseñas no coinciden.');
-            return false;
-        }
-        return true;
-    }
 };

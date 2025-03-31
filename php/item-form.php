@@ -2,14 +2,25 @@
 session_start();
 include '../php/connectDB.php'; 
 include '../php/resizeImage.php';
+include 'checkSession.php';
 
 $user_id = $_SESSION['user_id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $category_id = $_POST['category'];
-    $subcategory_id = $_POST['subcategory'];
+    $title = $_POST['title'] ?? '';
+    $description = $_POST['description'] ?? '';
+    $category_id = $_POST['category'] ?? '';
+    $subcategory_id = $_POST['subcategory'] ?? '';
+    
+    // Validate required fields
+    if (empty($title) || empty($description) || empty($category_id)) {
+        $_SESSION['notification'] = [
+            'message' => 'Por favor, completa todos los campos requeridos.',
+            'type' => 'error'
+        ];
+        echo "<script>window.location.href = '../pages/create-item.php';</script>";
+        exit;
+    }
     
     // Subir las imágenes
     $image_paths = [];
@@ -33,36 +44,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $image_paths[] = $thumbnail_path; // Guardar miniatura como la primera imagen
                     }
                     
-                        $image_paths[] = $target_file; // Guardar imagenes sin redimensionar
-
+                    $image_paths[] = $target_file; // Guardar imagenes sin redimensionar
                 } else {
-                    echo "Error al subir la imagen.";
+                    $_SESSION['notification'] = [
+                        'message' => 'Error al subir la imagen.',
+                        'type' => 'error'
+                    ];
+                    echo "<script>window.location.href = '../pages/create-item.php';</script>";
+                    exit;
                 }
             } else {
-                echo "Solo se permiten imágenes con los siguientes formatos: jpg, jpeg, png, gif.";
+                $_SESSION['notification'] = [
+                    'message' => 'Solo se permiten imágenes con los siguientes formatos: jpg, jpeg, png, gif.',
+                    'type' => 'error'
+                ];
+                echo "<script>window.location.href = '../pages/create-item.php';</script>";
+                exit;
             }
         }
+    }
+
+    if (empty($image_paths)) {
+        $_SESSION['notification'] = [
+            'message' => 'Por favor, sube al menos una imagen del artículo.',
+            'type' => 'error'
+        ];
+        echo "<script>window.location.href = '../pages/create-item.php';</script>";
+        exit;
     }
 
     // Convertir el array de imágenes a formato JSON
     $image_paths_json = json_encode($image_paths);
 
     // Preparar la consulta SQL para insertar la publicación
-    if (!empty($title) && !empty($description) && !empty($category_id)) {
-        $query = "INSERT INTO item (user_id, title, description, category_id, subcategory_id, images) 
-                  VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, 'isssss', $user_id, $title, $description, $category_id, $subcategory_id, $image_paths_json);
-        mysqli_stmt_execute($stmt);
+    $query = "INSERT INTO item (user_id, title, description, category_id, subcategory_id, images, status) 
+              VALUES (?, ?, ?, ?, ?, ?, 'Disponible')";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'isssss', $user_id, $title, $description, $category_id, $subcategory_id, $image_paths_json);
 
-        // Obtener el ID del ítem insertado
+    if (mysqli_stmt_execute($stmt)) {
         $item_id = mysqli_insert_id($conn);
-            
-        // Redirigir a la página de detalles del ítem
-        header("Location: ../pages/item.php?id=" . $item_id);
+        $_SESSION['notification'] = [
+            'message' => '¡Artículo publicado exitosamente!',
+            'type' => 'success'
+        ];
+        echo "<script>window.location.href = '../pages/item.php?id=" . $item_id . "';</script>";
         exit;
-        } else {
-            echo "Error al publicar el artículo.";
-        }
+    } else {
+        $_SESSION['notification'] = [
+            'message' => 'Error al publicar el artículo. Por favor, intenta nuevamente.',
+            'type' => 'error'
+        ];
+        echo "<script>window.location.href = '../pages/create-item.php';</script>";
+        exit;
+    }
+} else {
+    echo "<script>window.location.href = '../pages/create-item.php';</script>";
+    exit;
 }
 ?>

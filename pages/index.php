@@ -9,9 +9,50 @@ $result = mysqli_query($conn, $query);
 $items = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio - SwapIt</title>
+</head>
+
+<style>
+
+    .hover-lift {
+        transition: transform 0.2s ease-in-out;
+    }
+    .hover-lift:hover {
+        transform: translateY(-5px);
+    }
+    .card {
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+    .card-img-top {
+        height: 160px;
+        object-fit: contain;
+        width: 100%;
+        background-color: #f8f9fa;
+        padding: 0.5rem;
+    }
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .card-text {
+        flex-grow: 1;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+ 
+</style>
 <div class="container-fluid py-5">
     <div class="container">
-        <!-- Hero Section -->
         <div class="row align-items-center mb-5">
             <div class="col-lg-6">
                 <h1 class="display-4 fw-bold mb-4">Bienvenido a SwapIt</h1>
@@ -30,7 +71,6 @@ $items = mysqli_fetch_all($result, MYSQLI_ASSOC);
             </div>
         </div>
 
-        <!-- Featured Items Section -->
         <div class="mb-5">
             <h2 class="h3 mb-4">Publicaciones recientes</h2>
             <div class="row g-4">
@@ -54,8 +94,7 @@ $items = mysqli_fetch_all($result, MYSQLI_ASSOC);
                             <div class="card h-100 shadow-sm">
                                 <img src="<?php echo htmlspecialchars($firstImage); ?>" 
                                      class="card-img-top" 
-                                     alt="<?php echo htmlspecialchars($item['title']); ?>"
-                                     style="height: 200px; object-fit: cover;">
+                                     alt="<?php echo htmlspecialchars($item['title']); ?>">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($item['title']); ?></h5>
                                     <p class="card-text text-muted">
@@ -81,13 +120,11 @@ $items = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 ?>
             </div>
         </div>
-
-        <!-- Categories Section -->
         <div class="mb-5">
             <h2 class="h3 mb-4">Categorías Populares</h2>
             <div class="row g-4">
                 <?php
-                $categories = ['Electrónica', 'Ropa y Moda', 'Libros', 'Hogar', 'Muebles'];
+                $categories = ['Electrónica', 'Ropa y Moda', 'Hogar y Muebles', 'Automoviles y Accesorios', 'Juguetes y Juegos'];
                 foreach ($categories as $category) {
                     ?>
                     <div class="col-md-4 col-lg-2">
@@ -104,35 +141,7 @@ $items = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 ?>
             </div>
         </div>
-
-        <!-- Features Section -->
-        <div class="row g-4 mb-5">
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <i class="fas fa-star fa-3x text-primary mb-3"></i>
-                        <h3 class="h5">Sistema de Calificaciones</h3>
-                        <p class="text-muted">Evalúa y confía en otros usuarios.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
-
-<style>
-    .hover-lift {
-        transition: transform 0.2s ease-in-out;
-    }
-    .hover-lift:hover {
-        transform: translateY(-5px);
-    }
-    .card {
-        transition: all 0.3s ease;
-    }
-    .card:hover {
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-    }
-</style>
 
 <?php include '../php/footer.php'; ?>

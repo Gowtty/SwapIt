@@ -168,6 +168,8 @@ if ($current_user_id) {
         }
         .rating-input {
             display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
             gap: 0.5rem;
             margin-bottom: 1rem;
         }
@@ -183,6 +185,9 @@ if ($current_user_id) {
         .star-input:checked ~ .star-label,
         .star-label:hover,
         .star-label:hover ~ .star-label {
+            color: #ffc107;
+        }
+        .star-input:checked + .star-label {
             color: #ffc107;
         }
         .review-textarea {

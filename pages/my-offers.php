@@ -124,6 +124,9 @@ $made_offers = mysqli_stmt_get_result($stmt);
                                                     <a href="../php/reject-offer.php?id=<?php echo $offer['offer_id']; ?>" 
                                                        onclick="return confirm('¿Estás seguro de que deseas rechazar esta oferta?');"
                                                        class="btn btn-danger btn-sm">Rechazar</a>
+                                                <?php elseif ($offer['status'] == 'Aceptada'): ?>
+                                                    <a href="accepted-offer.php?id=<?php echo $offer['offer_id']; ?>" 
+                                                       class="btn btn-info btn-sm">Ver detalles</a>
                                                 <?php else: ?>
                                                     <span class="text-muted">No disponible</span>
                                                 <?php endif; ?>

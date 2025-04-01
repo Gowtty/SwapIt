@@ -18,9 +18,6 @@ $query = "SELECT item.*, categories.name AS category_name,
           LEFT JOIN categories ON item.category_id = categories.id
           WHERE item.id = ? AND item.user_id = ?";
 $stmt = mysqli_prepare($conn, $query);
-if ($stmt === false) {
-    die('Error en la preparación de la consulta: ' . mysqli_error($conn));
-}
 
 mysqli_stmt_bind_param($stmt, 'ii', $item_id, $_SESSION['user_id']);
 mysqli_stmt_execute($stmt);

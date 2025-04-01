@@ -17,7 +17,7 @@ $query = "
     SELECT item.*, 
            categories.name AS category_name, 
            subcategories.name AS subcategory_name, 
-           users.username,
+           users.username, users.city, users.state,
            users.id AS owner_id,
            item.status AS item_status
     FROM item
@@ -231,6 +231,8 @@ $isOwner = ($user_id == $item['owner_id']);
                         <a href="view-profile.php?id=<?php echo $item['owner_id']; ?>" class="text-decoration-none">
                             <?php echo htmlspecialchars($item['username']); ?>
                         </a>
+                        <hr>
+                        <span><i class="fas fa-map-marker-alt me-2"></i>Ubicación: <?php echo htmlspecialchars($item['city']); ?>, <?php echo htmlspecialchars($item['state']); ?></span>
                     </p>
                 </div>
 

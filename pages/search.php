@@ -4,22 +4,59 @@ include '../php/connectDB.php';
 include '../php/checkSession.php';
 
 $search_query = isset($_GET['q']) ? trim($_GET['q']) : '';
+$category_id = isset($_GET['category']) ? (int)$_GET['category'] : null;
 $items = array();
 
+// Build the base query
+$query = "SELECT i.*, u.username, c.name as category_name 
+          FROM item i 
+          JOIN users u ON i.user_id = u.id 
+          LEFT JOIN categories c ON i.category_id = c.id 
+          WHERE i.status = 'Disponible'";
+
+$params = array();
+$types = "";
+
+// Add search condition if there's a search query
 if (!empty($search_query)) {
-    $query = "SELECT i.*, u.username 
-              FROM item i 
-              JOIN users u ON i.user_id = u.id 
-              WHERE i.title LIKE ? OR i.description LIKE ? 
-              AND i.status = 'Disponible'
-              ORDER BY i.created_at DESC";
+    $query .= " AND (i.title LIKE ? OR i.description LIKE ?)";
     $search_param = "%{$search_query}%";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $search_param, $search_param);
+    $params[] = $search_param;
+    $params[] = $search_param;
+    $types .= "ss";
+}
+
+// Add category condition if a category is selected
+if ($category_id) {
+    $query .= " AND i.category_id = ?";
+    $params[] = $category_id;
+    $types .= "i";
+}
+
+$query .= " ORDER BY i.created_at DESC";
+
+// Prepare and execute the query
+$stmt = $conn->prepare($query);
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
+}
+$stmt->execute();
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) {
+    $items[] = $row;
+}
+$stmt->close();
+
+// Get category name for display
+$category_name = '';
+if ($category_id) {
+    $cat_query = "SELECT name FROM categories WHERE id = ?";
+    $stmt = $conn->prepare($cat_query);
+    $stmt->bind_param("i", $category_id);
     $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $items[] = $row;
+    $cat_result = $stmt->get_result();
+    if ($cat_row = $cat_result->fetch_assoc()) {
+        $category_name = $cat_row['name'];
     }
     $stmt->close();
 }
@@ -50,31 +87,35 @@ if (!empty($search_query)) {
             color: #333;
             margin-bottom: 1rem;
         }
+        .search-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            align-items: center;
+        }
         .search-input-group {
             position: relative;
-            max-width: 600px;
-            margin: 0 auto;
+            flex: 1;
         }
-        .search-input {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
+        .category-select {
+            padding: 1rem;
             border: 2px solid #dee2e6;
             border-radius: 12px;
             font-size: 1.1rem;
+            background-color: white;
+            color: #333;
+            cursor: pointer;
+            min-width: 200px;
             transition: all 0.3s ease;
         }
-        .search-input:focus {
+        .category-select:focus {
             outline: none;
             border-color: #0d6efd;
             box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
         }
-        .search-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6c757d;
-            font-size: 1.2rem;
+        .category-select option {
+            padding: 0.5rem;
         }
         .search-results {
             display: grid;
@@ -158,6 +199,12 @@ if (!empty($search_query)) {
             margin-bottom: 1rem;
         }
         @media (max-width: 768px) {
+            .search-form {
+                flex-direction: column;
+            }
+            .category-select {
+                width: 100%;
+            }
             .search-results {
                 grid-template-columns: 1fr;
             }
@@ -168,16 +215,50 @@ if (!empty($search_query)) {
 
     <div class="search-container">
         <div class="search-header">
-            <h1 class="search-title">Buscar Artículos</h1>
-            <form action="search.php" method="GET" class="search-input-group">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" name="q" class="search-input" placeholder="Buscar artículos..." value="<?php echo htmlspecialchars($search_query); ?>">
+            <h1 class="search-title">
+                <?php if ($category_name): ?>
+                    Categoría: <?php echo htmlspecialchars($category_name); ?>
+                <?php else: ?>
+                    Buscar Artículos
+                <?php endif; ?>
+            </h1>
+            
+            <?php
+            // Get only main categories (where parent_id is NULL) for the dropdown
+            $categories_query = "SELECT id, name FROM categories WHERE parent_id IS NULL ORDER BY name";
+            $categories_result = mysqli_query($conn, $categories_query);
+            $categories = array();
+            while ($row = mysqli_fetch_assoc($categories_result)) {
+                $categories[] = $row;
+            }
+            ?>
+
+            <form action="search.php" method="GET" class="search-form">
+                <div class="search-input-group search-view">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" name="q" class="search-input" 
+                           placeholder="Buscar artículos..." 
+                           value="<?php echo htmlspecialchars($search_query); ?>">
+                </div>
+                <select name="category" class="category-select" onchange="this.form.submit()">
+                    <option value="">Todas las categorías</option>
+                    <?php foreach ($categories as $cat): ?>
+                        <option value="<?php echo $cat['id']; ?>" 
+                                <?php echo ($category_id == $cat['id']) ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($cat['name']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </form>
         </div>
 
-        <?php if (!empty($search_query)): ?>
+        <?php if (!empty($search_query) || $category_id): ?>
             <div class="search-stats">
-                <?php echo count($items); ?> resultados para "<?php echo htmlspecialchars($search_query); ?>"
+                <?php 
+                $search_text = !empty($search_query) ? " para \"{$search_query}\"" : "";
+                $category_text = $category_name ? " en la categoría \"{$category_name}\"" : "";
+                echo count($items) . " resultados" . $search_text . $category_text;
+                ?>
             </div>
         <?php endif; ?>
 

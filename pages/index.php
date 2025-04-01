@@ -127,19 +127,25 @@ $items = mysqli_fetch_all($result, MYSQLI_ASSOC);
             <h2 class="h3 mb-4">Categorías Populares</h2>
             <div class="row g-4">
                 <?php
-                $categories = ['Electrónica', 'Ropa y Moda', 'Hogar y Muebles', 'Automoviles y Accesorios', 'Juguetes y Juegos'];
-                foreach ($categories as $category) {
-                    ?>
-                    <div class="col-md-4 col-lg-2">
-                        <a href="search.php?category=<?php echo urlencode($category); ?>" 
-                           class="card text-decoration-none text-center h-100 shadow-sm hover-lift">
-                            <div class="card-body">
-                                <i class="fas fa-folder fa-2x text-primary mb-2"></i>
-                                <h5 class="card-title mb-0"><?php echo $category; ?></h5>
-                            </div>
-                        </a>
-                    </div>
-                    <?php
+                $query = "SELECT id, name FROM categories WHERE parent_id IS NULL ORDER BY name";
+                $result = mysqli_query($conn, $query);
+                
+                if ($result && mysqli_num_rows($result) > 0) {
+                    while ($category = mysqli_fetch_assoc($result)) {
+                        ?>
+                        <div class="col-md-4 col-lg-2">
+                            <a href="search.php?category=<?php echo urlencode($category['id']); ?>" 
+                               class="card text-decoration-none text-center h-100 shadow-sm hover-lift">
+                                <div class="card-body">
+                                    <i class="fas fa-folder fa-2x text-primary mb-2"></i>
+                                    <h5 class="card-title mb-0"><?php echo htmlspecialchars($category['name']); ?></h5>
+                                </div>
+                            </a>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    echo '<div class="col-12"><p class="text-muted">No hay categorías disponibles.</p></div>';
                 }
                 ?>
             </div>

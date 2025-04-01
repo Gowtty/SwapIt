@@ -198,48 +198,6 @@ $stmt_swaps->close();
             color: #666;
             font-size: 0.9rem;
         }
-        .search-section {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: #f8f9fa;
-            border-radius: 15px;
-        }
-        .search-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-        }
-        .search-title {
-            font-size: 1.2rem;
-            color: #333;
-            font-weight: 600;
-        }
-        .search-input-group {
-            position: relative;
-            max-width: 400px;
-            width: 100%;
-        }
-        .search-input {
-            width: 100%;
-            padding: 0.75rem 1rem 0.75rem 2.5rem;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        .search-input:focus {
-            outline: none;
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
-        }
-        .search-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6c757d;
-        }
         .items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

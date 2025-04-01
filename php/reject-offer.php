@@ -50,7 +50,7 @@
                         mysqli_stmt_bind_param($stmt, 'i', $offer_id);
                         mysqli_stmt_execute($stmt);
 
-                        echo '<div class="alert alert-success">Oferta rechazada correctamente.</div>';
+                        echo '<script>window.location.href = "../pages/rejected-offer.php";</script>';
                         echo '<a href="../pages/my-offers.php" class="btn btn-primary">Volver a mis ofertas</a>';
                         ?>
                     </div>

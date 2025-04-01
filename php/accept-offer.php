@@ -56,7 +56,13 @@
                         mysqli_stmt_bind_param($stmt, 'i', $offer['item_id']);
                         mysqli_stmt_execute($stmt);
 
-                        echo '<div class="alert alert-success">Oferta aceptada correctamente.</div>';
+                        // Actualizar el estado del ítem ofrecido a "Reservado"
+                        $query = "UPDATE item SET status = 'Reservado' WHERE id = ?";
+                        $stmt = mysqli_prepare($conn, $query);
+                        mysqli_stmt_bind_param($stmt, 'i', $offer['offered_item_id']);
+                        mysqli_stmt_execute($stmt);
+
+                        echo '<script>window.location.href = "../pages/accepted-offer.php?id=' . $offer_id . '";</script>';
                         echo '<a href="../pages/my-offers.php" class="btn btn-primary">Volver a mis ofertas</a>';
                         ?>
                     </div>
